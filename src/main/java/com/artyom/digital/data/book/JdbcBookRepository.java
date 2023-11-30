@@ -7,19 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class BookRepositoryImpl implements BookRepository {
-
-    private final JdbcTemplate jdbcTemplate;
+public class JdbcBookRepository implements BookRepository {
 
     @Autowired
-    public BookRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public Integer insert(Book book) {

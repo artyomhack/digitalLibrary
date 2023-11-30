@@ -1,7 +1,8 @@
-package com.artyom.digital.domain.person;
+package com.artyom.digital.data.person;
 
 import com.artyom.digital.domain.book.BookItem;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Data
 public class Person {
+    @Id
     private final Integer id;
     private String fullName;
     private String age;
