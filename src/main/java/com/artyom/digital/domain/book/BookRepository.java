@@ -1,5 +1,8 @@
 package com.artyom.digital.domain.book;
 
+import com.artyom.digital.data.book.Book;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 public interface BookRepository {
