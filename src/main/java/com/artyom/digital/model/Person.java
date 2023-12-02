@@ -2,11 +2,9 @@ package com.artyom.digital.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class Person {
-    private int id;
+    private Integer id;
     private String fullName;
     private String age;
 

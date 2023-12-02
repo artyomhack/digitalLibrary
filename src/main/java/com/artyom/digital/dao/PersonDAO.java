@@ -4,17 +4,11 @@ import com.artyom.digital.mapper.PersonMapper;
 import com.artyom.digital.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.security.Key;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,6 +31,7 @@ public class PersonDAO {
             ps.setString(2, person.getAge());
             return ps;
         }, key);
+        person.setId(Objects.requireNonNull(key.getKey()).intValue());
     }
 
     public void updateById(int id, Person person) {

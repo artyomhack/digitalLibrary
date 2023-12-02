@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create person</title>
@@ -17,8 +16,8 @@
                 <td th:text="${person.getFullName()}"></td>
                 <td th:text="${person.getAge()}">
                 </td>
-                <td><a class="floating-button-a" th:href="@{/person/edit/{id}(id=${person.getId()})}">Изменить</a></td>
-                <td><a class="floating-button-a" th:href="@{/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
+                <td><a class="floating-button-a" th:href="@{/templates/person/edit/{id}(id=${person.getId()})}">Изменить</a></td>
+                <td><a class="floating-button-a" th:href="@{/templates/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
             </tr>
         </table>
     </div>

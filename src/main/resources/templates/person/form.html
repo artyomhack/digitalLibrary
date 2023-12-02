@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create person</title>
 </head>
 <body>
-    <form th:method="POST" th:action="@{/person/create}" th:object="${person}">
-        <input type="text" th:field="*fullName" id="fullName" placeholder="Full name"/>
+<div>
+    <form th:method="POST">
+        <label for="fullName"> Full Name: </label>
+            <input type="text" name="fullName" th:value="${fullName}" id="fullName"/>
         <br/>
         <br/>
-        <input type="text" th:field="*age" id="age" placeholder="Age"/>
+        <label for="age">Age: </label>
+        <input type="text" name="age" th:value="${age}" id="age"/>
         <br/>
         <br/>
-        <button type="button">save</button>
+        <button type="submit">save</button>
     </form>
+</div>
 </body>
 </html>

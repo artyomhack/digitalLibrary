@@ -4,15 +4,13 @@ import com.artyom.digital.dao.PersonDAO;
 import com.artyom.digital.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
-@Controller("/person")
+@Controller
+@RequestMapping("/person")
 public class PersonController {
 
     private final PersonDAO personDAO;
@@ -36,7 +34,7 @@ public class PersonController {
     public ModelAndView index(@PathVariable("id") String id) {
         var person = personDAO.fetchById(Integer.parseInt(id));
         var model = getInfo(person);
-        model.setViewName("person/index");
+        model.setViewName("/person/index");
         return model;
     }
 
@@ -45,7 +43,7 @@ public class PersonController {
         //Get all Person from DAO
         var persons = personDAO.fetchAll();
         model.addAttribute("persons", persons);
-        return "person/list";
+        return "/person/list";
     }
 
     public ModelAndView getInfo(Person person) {
