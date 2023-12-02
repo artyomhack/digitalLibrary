@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Create person</title>
+</head>
+<body>
+<div class="menu">
+    <div>
+        <table class="table">
+            <tr>
+                <td>FullName</td>
+                <td>Age</td>
+            </tr>
+            <tr th:each="person:${persons}">
+                <td th:text="${person.getFullName()}"></td>
+                <td th:text="${person.getAge()}">
+                </td>
+                <td><a class="floating-button-a" th:href="@{/person/edit/{id}(id=${person.getId()})}">Изменить</a></td>
+                <td><a class="floating-button-a" th:href="@{/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a class="floating-button-a" href="/person/create">Create task</a>
+        <a class="floating-button-a" href="/menu" >Menu</a>
+    </div>
+</div>
+</body>
+</html>
