@@ -20,12 +20,12 @@ public class PersonController {
     }
 
     @GetMapping("/create")
-    public String showFormCreate() {
+    public String showForm() {
         return "person/form";
     }
 
     @PostMapping("/create")
-    public String formCreate(@ModelAttribute("person") Person request) {
+    public String createForm(@ModelAttribute("person") Person request) {
         personDAO.save(request);
         return "redirect:/person/" + request.getId();
     }
@@ -53,6 +53,7 @@ public class PersonController {
         model.getModelMap().addAttribute("id", person.getId());
         model.getModelMap().addAttribute("fullName", person.getFullName());
         model.getModelMap().addAttribute("age", person.getAge());
+        model.getModelMap().addAttribute("books", person.getBooks());
 
         return model;
     }

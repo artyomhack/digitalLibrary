@@ -1,8 +1,10 @@
 package com.artyom.digital.dao;
 
 import com.artyom.digital.mapper.PersonMapper;
+import com.artyom.digital.model.Book;
 import com.artyom.digital.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -14,7 +16,6 @@ import java.util.Objects;
 
 @Component
 public class PersonDAO {
-
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -23,7 +24,7 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        String sql = "INSERT INTO Person(fullName, age) VALUES(?,?)";
+        String sql = "INSERT INTO person(fullName, age) VALUES(?,?)";
         KeyHolder key = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, new String[] {"id"});
@@ -34,8 +35,8 @@ public class PersonDAO {
         person.setId(Objects.requireNonNull(key.getKey()).intValue());
     }
 
-    public void updateById(int id, Person person) {
-        String sql = "UPDATE Person SET fullName=? age=? WHERE id=?";
+    public void update(Integer id, Person person) {
+        String sql = "UPDATE Person SET fullName=?, age=? WHERE id=?";
         jdbcTemplate.update(sql, person.getFullName(), person.getAge(), id);
     }
 
@@ -46,8 +47,14 @@ public class PersonDAO {
 
     public Person fetchById(int id) {
         String sql = "SELECT * FROM person WHERE id=?";
-        return jdbcTemplate.query(sql, new PersonMapper(), id).stream()
-                .findAny().orElse(null);
+        return jdbcTemplate.query(sql, new PersonMapper(), id)
+                .stream().findAny()
+                .orElseThrow(() -> new IllegalArgumentException("PersonId not found"));
+    }
+
+    public List<Book> fetchBooksByPersonId(Integer person_id) {
+        String sql = "SELECT * FROM WHERE person_id=?";
+        return jdbcTemplate.query(sql, new Object[]{person_id}, new BeanPropertyRowMapper<>(Book.class));
     }
 
     public void removeById(int id) {

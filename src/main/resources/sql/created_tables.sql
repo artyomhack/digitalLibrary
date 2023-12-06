@@ -4,10 +4,12 @@ CREATE TABLE person (
     age varchar(3) not null
 );
 
-CREATE TABLE Book (
+CREATE TABLE book (
     id serial primary key,
     title varchar(55) unique,
     author varchar(100) not null,
     year_ varchar(4) not null ,
-    person_id serial references person(id)
+    person_id INT,
+
+    CONSTRAINT fk_person FOREIGN KEY(person_id) references person(id)
 );

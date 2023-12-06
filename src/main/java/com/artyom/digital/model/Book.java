@@ -1,21 +1,23 @@
 package com.artyom.digital.model;
 
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class Book {
-    private final Integer id;
+    private Integer id;
     private String title;
     private String author;
     private String year;
-    private List<Person> persons;
+    private Person person;
 
-    public Book(Integer id, String title, String author, String year, List<Person> persons) {
+    public Book() {
+    }
+
+    public Book(Integer id, String title, String author, String year, Person person) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.year = year;
-        this.persons = persons;
+        this.person = person;
     }
 }

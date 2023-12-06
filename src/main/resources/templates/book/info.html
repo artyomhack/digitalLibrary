@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <label for="title"></label>
+        <h3 id="title" th:text="${title}"></h3>
+        <br/>
+        <br/>
+        <label for="author"></label>
+        <h3 id="author" th:text="${author}"></h3>
+        <br/>
+        <br/>
+        <label for="year_"></label>
+        <h3 id="year_" th:text="${year}"></h3>
+        <br/>
+        <br/>
+    </div>
+    <form th:method="POST" th:action="@{/book/info/{id}/addPerson}" th:object="${person}">
+        <label for="person">Choose person: </label>
+        <select id="person" name="id" th:field="*{id}">
+            <option th:each="person : ${persons}" th:value="${person.id}" th:text="${person.fullName}">
+            </option>
+        </select>
+        <button type="submit">Для читателя</button>
+    </form>
+</body>
+</html>
