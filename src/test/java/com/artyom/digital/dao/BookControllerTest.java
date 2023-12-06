@@ -38,7 +38,7 @@ public class BookControllerTest {
 
     @Test
     public void getInfo() throws Exception {
-        mockMvc.perform(get("/book/11"))
+        mockMvc.perform(get("/book/info/11"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

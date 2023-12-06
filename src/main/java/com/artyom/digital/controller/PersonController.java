@@ -30,7 +30,7 @@ public class PersonController {
         return "redirect:/person/" + request.getId();
     }
 
-    @GetMapping("/{id:[0-9]}")
+    @GetMapping("/{id}")
     public ModelAndView index(@PathVariable("id") String id) {
         var person = personDAO.fetchById(Integer.parseInt(id));
         var model = getInfo(person);

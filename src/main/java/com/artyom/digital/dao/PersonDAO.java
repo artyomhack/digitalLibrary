@@ -52,9 +52,13 @@ public class PersonDAO {
                 .orElseThrow(() -> new IllegalArgumentException("PersonId not found"));
     }
 
-    public List<Book> fetchBooksByPersonId(Integer person_id) {
-        String sql = "SELECT * FROM WHERE person_id=?";
-        return jdbcTemplate.query(sql, new Object[]{person_id}, new BeanPropertyRowMapper<>(Book.class));
+//    public List<Book> fetchBooksByPersonId(Integer person_id) {
+//        String sql = "SELECT * FROM book WHERE person_id=?";
+//        return jdbcTemplate.query(sql, new Object[]{person_id}, new BeanPropertyRowMapper<>(Book.class));
+//    }
+
+    public Person fetchPersonFromBookIdByPersonId(Integer book_id, Integer person_id) {
+        String sql = "SELECT pers.* FROM person JOIN
     }
 
     public void removeById(int id) {

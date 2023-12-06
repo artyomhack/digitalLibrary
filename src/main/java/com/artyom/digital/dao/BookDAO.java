@@ -52,8 +52,7 @@ public class BookDAO {
     public void addBookIdByPersonId(Integer person_id, Integer book_id) {
         String sql = "UPDATE book SET title=?, author=?, year_=?, person_id=? WHERE id=?";
         var book = fetchById(book_id);
-        jdbcTemplate.update(sql, book.getId(), book.getTitle(), book.getAuthor(),
+        jdbcTemplate.update(sql, book.getTitle(), book.getAuthor(),
                             book.getYear(), person_id, book_id);
-
     }
 }
