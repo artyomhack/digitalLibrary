@@ -43,4 +43,11 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void addPersonForBook() throws Exception{
+        mockMvc.perform(post("/book/info/12/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
 }

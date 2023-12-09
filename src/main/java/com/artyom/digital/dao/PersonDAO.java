@@ -1,10 +1,8 @@
 package com.artyom.digital.dao;
 
 import com.artyom.digital.mapper.PersonMapper;
-import com.artyom.digital.model.Book;
 import com.artyom.digital.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -57,8 +55,12 @@ public class PersonDAO {
 //        return jdbcTemplate.query(sql, new Object[]{person_id}, new BeanPropertyRowMapper<>(Book.class));
 //    }
 
-    public Person fetchPersonFromBookIdByPersonId(Integer book_id, Integer person_id) {
-        String sql = "SELECT pers.* FROM person JOIN
+    public Person fetchPersonByBookIdAndPersonId(Integer book_id, Integer person_id) {
+        String sql = "SELECT person.* FROM person JOIN book ON book.person_id = person.id " +
+                     "WHERE book.id=? AND person.id=?";
+        return jdbcTemplate.query(sql, new PersonMapper(), book_id, person_id)
+                .stream().findAny()
+                .orElseThrow(() -> new IllegalArgumentException("PersonId or BookId not found"));
     }
 
     public void removeById(int id) {

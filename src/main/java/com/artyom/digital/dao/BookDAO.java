@@ -1,9 +1,9 @@
 package com.artyom.digital.dao;
 
 import com.artyom.digital.mapper.BookMapper;
+import com.artyom.digital.mapper.BookPersonMapper;
 import com.artyom.digital.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Component;
@@ -37,22 +37,25 @@ public class BookDAO {
     }
 
     public Book fetchById(Integer bookId) {
-        String sql = "SELECT * FROM book WHERE id=?";
-
-        return jdbcTemplate.query(sql, new BookMapper(), bookId)
-                .stream().findAny()
-                .orElseThrow(() -> new IllegalArgumentException("BookId not found"));
+        String sql = "SELECT book.*, person.* FROM book LEFT JOIN person ON book.person_id = person.id WHERE book.id = ?";
+        return jdbcTemplate.queryForObject(sql, new BookPersonMapper(), bookId);
     }
 
     public List<Book> fetchAll() {
         String sql = "SELECT * FROM book";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
+        return jdbcTemplate.query(sql, new BookMapper());
     }
 
-    public void addBookIdByPersonId(Integer person_id, Integer book_id) {
+    public List<Book> fetchAllFromBook() {
+        String sql = "SELECT book.*, person.* FROM book LEFT JOIN person ON book.person_id = person.id";
+
+        return jdbcTemplate.query(sql, new BookPersonMapper());
+    }
+
+    public void ByBookIdAddPersonId(Integer bookId, Integer personId) {
         String sql = "UPDATE book SET title=?, author=?, year_=?, person_id=? WHERE id=?";
-        var book = fetchById(book_id);
+        var book = fetchById(bookId);
         jdbcTemplate.update(sql, book.getTitle(), book.getAuthor(),
-                            book.getYear(), person_id, book_id);
+                            book.getYear(), personId, bookId);
     }
 }

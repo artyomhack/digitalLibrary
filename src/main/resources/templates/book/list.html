@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+<div>
+    <table class="table">
+        <tr>
+            <td>Title </td>
+            <td>Author </td>
+            <td>Year </td>
+            <td>Person </td>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.getTitle()} "></td>
+            <td th:text="${book.getAuthor()} "></td>
+            <td th:text="${book.getYear()} "></td>
+            <td th:if="${book.getPerson() != null}" th:text="${book.getPerson().getFullName()} "></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a class="floating-button-a" href="/book/create">Create task</a>
+    <a class="floating-button-a" href="/menu" >Menu</a>
+</div>
+</body>
+</html>

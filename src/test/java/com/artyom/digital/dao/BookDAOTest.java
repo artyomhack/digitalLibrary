@@ -7,10 +7,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class BookDAOTest {
 
     @Autowired
@@ -19,9 +22,9 @@ public class BookDAOTest {
     private PersonDAO personDAO;
 
     @Test
+    @Rollback
     public void insert() {
         Book book = new Book();
-
         book.setTitle("Капитанская дочка");
         book.setAuthor("А.С Пушкин");
         book.setYear("1985");
@@ -34,13 +37,4 @@ public class BookDAOTest {
         Assert.assertEquals("1985", book.getYear());
         Assert.assertNull(book.getPerson());
     }
-
-    @Test
-    public void saveBookByPersonId() {
-        var person = new Person();
-
-
-    }
-
-
 }
