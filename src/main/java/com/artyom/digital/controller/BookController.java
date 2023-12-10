@@ -3,18 +3,16 @@ package com.artyom.digital.controller;
 import com.artyom.digital.dao.BookDAO;
 import com.artyom.digital.dao.PersonDAO;
 import com.artyom.digital.model.Book;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
-
 @Controller
 @RequestMapping("/book")
 public class BookController {
-
     private final BookDAO bookDAO;
     private final PersonDAO personDAO;
 
@@ -24,9 +22,7 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String showForm(@ModelAttribute("book") Book book,
-                           Model model)
-    {
+    public String showForm(@ModelAttribute("book") Book book, Model model) {
         model.addAttribute("persons", personDAO.fetchAll());
         return "book/form";
     }
@@ -54,8 +50,6 @@ public class BookController {
         return "book/list";
     }
 
-
-
     private ModelAndView mapToInfo(Book book) {
         Objects.requireNonNull(book);
         var model = new ModelAndView();
@@ -67,5 +61,4 @@ public class BookController {
 
         return model;
     }
-
 }

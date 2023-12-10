@@ -16,13 +16,13 @@
                 <td th:text="${person.getFullName()}"></td>
                 <td th:text="${person.getAge()}">
                 </td>
-                <td><a class="floating-button-a" th:href="@{/templates/person/edit/{id}(id=${person.getId()})}">Изменить</a></td>
-                <td><a class="floating-button-a" th:href="@{/templates/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
+                <td><a class="floating-button-a" th:href="@{'/person/'+ ${person.id} + '/edit'}">edit</a></td>
+                <td><a class="floating-button-a" th:href="@{/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
             </tr>
         </table>
     </div>
     <div>
-        <a class="floating-button-a" href="/person/create">Create task</a>
+        <a class="floating-button-a" href="/person/create">Create person</a>
         <a class="floating-button-a" href="/menu" >Menu</a>
     </div>
 </div>

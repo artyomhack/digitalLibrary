@@ -20,17 +20,17 @@ public class PersonController {
     }
 
     @GetMapping("/create")
-    public String showForm() {
+    public String showForm(@ModelAttribute("person") Person person) {
         return "person/form";
     }
 
     @PostMapping("/create")
     public String createForm(@ModelAttribute("person") Person request) {
         personDAO.save(request);
-        return "redirect:/person/" + request.getId();
+        return "redirect:/person/info/" + request.getId();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/info/{id}")
     public ModelAndView index(@PathVariable("id") String id) {
         var person = personDAO.fetchById(Integer.parseInt(id));
         var model = getInfo(person);
@@ -44,6 +44,18 @@ public class PersonController {
         var persons = personDAO.fetchAll();
         model.addAttribute("persons", persons);
         return "/person/list";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") String id, Model model) {
+        model.addAttribute("person", personDAO.fetchById(Integer.parseInt(id)));
+        return "person/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person, @PathVariable("id") String id) {
+        personDAO.update(Integer.valueOf(id), person);
+        return "redirect:/person/info/" + id;
     }
 
     public ModelAndView getInfo(Person person) {

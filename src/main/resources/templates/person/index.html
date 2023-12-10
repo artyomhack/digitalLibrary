@@ -7,12 +7,9 @@
 <body>
     <h4 th:text="${id}"></h4>
     <div class="info">
-        <label for="fullName">Full name:</label>
-        <p id="fullName" th:text="${fullName}"></p>
-        <label for="Age">Age:</label>
-        <p id="Age" th:text="${age}"></p>
+        <h4 id="fullName" th:text="'Fullname: ' + ${fullName}"></h4>
         <br/>
-        <br/>
+        <h4  id="Age" th:text="'Age: ' + ${age}"></h4>
     </div>
 </body>
 </html>
