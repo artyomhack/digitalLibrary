@@ -23,13 +23,14 @@ public class BookDAO {
     }
 
     public void save(Book book) {
-        String sql = "INSERT INTO book(title, author, year_) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO book(title, author, year_, person_id) VALUES(?, ?, ?, ?)";
         var key = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, new String[] {"id"});
             ps.setString(1, book.getTitle());
             ps.setString(2, book.getAuthor());
             ps.setString(3, book.getYear());
+            ps.setInt(4, book.getPerson().getId());
             return ps;
         }, key);
 
@@ -52,7 +53,7 @@ public class BookDAO {
         return jdbcTemplate.query(sql, new BookPersonMapper());
     }
 
-    public void ByBookIdAddPersonId(Integer bookId, Integer personId) {
+    public void addByBookIdPersonId(Integer bookId, Integer personId) {
         String sql = "UPDATE book SET title=?, author=?, year_=?, person_id=? WHERE id=?";
         var book = fetchById(bookId);
         jdbcTemplate.update(sql, book.getTitle(), book.getAuthor(),

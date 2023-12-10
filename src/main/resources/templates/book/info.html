@@ -11,14 +11,13 @@
     <h3 id="author" th:text="'Author: ' + ${author}"></h3>
     <h3 id="year_" th:text="'Year: ' + ${year}"></h3>
     <h3 th:text="${person.getFullName() != null ? 'Читает: ' + person.getFullName() + ' | ID:' + person.getId() : 'Эту книгу не читают'}"></h3>
+    <form th:if="${person.getFullName() == null}" th:method="POST" th:object="${person}">
+        <select id="personId" th:field="*{id}">
+            <option th:each="p : ${persons}" th:value="${p.id}" th:text="${p.fullName}">
+            </option>
+        </select>
+        <button type="submit">Для читателя</button>
+    </form>
 </div>
-<!--    <form  th:method="POST" th:action="@{'/book/info/' + ${bookId} + '/' + ${personId}}" th:object="${person}">-->
-<!--        <label for="person">Choose person: </label>-->
-<!--        <select id="person" th:field="*{id}">-->
-<!--            <option th:each="p : ${persons}" th:value="${p.id}" th:text="${p.fullName}">-->
-<!--            </option>-->
-<!--        </select>-->
-<!--        <button type="submit">Для читателя</button>-->
-<!--    </form>-->
 </body>
 </html>

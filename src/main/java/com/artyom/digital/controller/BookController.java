@@ -24,17 +24,17 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String showCreateForm(@ModelAttribute("book") Book book,
-                                 Model model) {
+    public String showForm(@ModelAttribute("book") Book book,
+                           Model model)
+    {
         model.addAttribute("persons", personDAO.fetchAll());
         return "book/form";
     }
 
     @PostMapping("/create")
-    public String createForm(@ModelAttribute("book") Book book,
-                             @RequestParam(name = "personId", required = false) String personId)
+    public String createForm(@ModelAttribute("book") Book book)
     {
-        bookDAO.ByBookIdAddPersonId(book.getId(), Integer.parseInt(personId));
+        bookDAO.save(book);
         return "redirect:/book/info/" + book.getId();
     }
 
