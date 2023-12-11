@@ -6,12 +6,14 @@
 </head>
 <body>
 <div>
-    <form th:method="POST" th:object="${person}">
-        <input type="text" style="font-size: 16px" name="fullName" th:text="'Fullname: ' + ${person.fullName}" id="fullName"/>
+    <form th:method="POST" th:action="@{/person/create}" th:object="${person}">
+        <input name="fullName" th:value="${person.fullName}" placeholder="Full name">
         <br/>
-        <input type="text" name="age" th:text="'Age: ' + ${person.age}" id="age"/>
         <br/>
-        <button type="submit">save</button>
+        <input name="age" th:value="${person.age}" placeholder="Age">
+        <br/>
+        <br/>
+        <button type="submit">Сохранить</button>
     </form>
 </div>
 </body>

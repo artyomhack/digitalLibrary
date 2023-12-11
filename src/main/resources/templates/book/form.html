@@ -7,17 +7,19 @@
 <body>
 <div>
     <form th:method="post" th:action="@{/book/create}" th:object="${book}">
-        <input type="text" name="title" th:value="'Title: ' + ${book.title}" id="title"/>
+        <input type="text" name="title" th:value="${book.title}" placeholder="Title"/>
         <br/>
-        <input type="text" name="author" th:value="'Author: ' + ${book.author}" id="author"/>
         <br/>
-        <input type="number" name="year" th:value="'Year: ' + ${book.year}" id="year"/>
+        <input type="text" name="author" th:value="${book.author}" placeholder="Author"/>
+        <br/>
+        <br/>
+        <input type="text" name="year" th:value="${book.year}" placeholder="Year"/>
+        <br/>
         <br/>
         <select name="personId" th:field="*{person.id}">
             <option th:each="person : ${persons}" th:value="${person.id}" th:text="${person.getFullName()}"></option>
         </select>
-        <br/>
-        <input type="submit">Create Book</input>
+        <input type="submit" value="Добавить читателя"/>
     </form>
 </div>
 </body>

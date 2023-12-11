@@ -53,6 +53,13 @@ public class BookDAO {
         return jdbcTemplate.query(sql, new BookPersonMapper());
     }
 
+    public List<Book> fetchAllByPersonId(Integer personId) {
+        String sql = "SELECT book.* FROM book INNER JOIN person ON book.person_id = person.id " +
+                "WHERE person_id=?";
+
+        return jdbcTemplate.query(sql, new BookMapper(),personId);
+    }
+
     public void addByBookIdPersonId(Integer bookId, Integer personId) {
         String sql = "UPDATE book SET title=?, author=?, year_=?, person_id=? WHERE id=?";
         var book = fetchById(bookId);

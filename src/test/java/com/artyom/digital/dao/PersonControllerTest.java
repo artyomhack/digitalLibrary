@@ -26,9 +26,6 @@ public class PersonControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private PersonController personController;
-
     @Test
     public void check() throws Exception {
         mockMvc.perform(get("/hello"))
@@ -45,9 +42,8 @@ public class PersonControllerTest {
 
     @Test
     public void getInfo() throws Exception {
-        mockMvc.perform(get("/person/1"))
+        mockMvc.perform(get("/person/info/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
 }

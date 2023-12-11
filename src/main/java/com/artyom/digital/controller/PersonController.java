@@ -1,5 +1,6 @@
 package com.artyom.digital.controller;
 
+import com.artyom.digital.dao.BookDAO;
 import com.artyom.digital.dao.PersonDAO;
 import com.artyom.digital.model.Person;
 import org.springframework.stereotype.Controller;
@@ -14,27 +15,31 @@ import java.util.Objects;
 public class PersonController {
 
     private final PersonDAO personDAO;
+    private final BookDAO bookDAO;
 
-    public PersonController(PersonDAO personDAO) {
+    public PersonController(PersonDAO personDAO, BookDAO bookDAO) {
         this.personDAO = personDAO;
+        this.bookDAO = bookDAO;
     }
 
     @GetMapping("/create")
-    public String showForm(@ModelAttribute("person") Person person) {
+    public String showForm(Model model) {
+        model.addAttribute("person", new Person());
         return "person/form";
     }
 
     @PostMapping("/create")
-    public String createForm(@ModelAttribute("person") Person request) {
-        personDAO.save(request);
-        return "redirect:/person/info/" + request.getId();
+    public String createForm(@ModelAttribute("person") Person person) {
+        personDAO.save(person);
+        return "redirect:/person/info/" + person.getId();
     }
 
     @GetMapping("/info/{id}")
-    public ModelAndView index(@PathVariable("id") String id) {
+    public ModelAndView showInfo(@PathVariable("id") String id) {
         var person = personDAO.fetchById(Integer.parseInt(id));
         var model = getInfo(person);
-        model.setViewName("/person/index");
+        model.getModelMap().addAttribute("books", bookDAO.fetchAllByPersonId(Integer.valueOf(id)));
+        model.setViewName("person/info");
         return model;
     }
 
@@ -65,7 +70,6 @@ public class PersonController {
         model.getModelMap().addAttribute("id", person.getId());
         model.getModelMap().addAttribute("fullName", person.getFullName());
         model.getModelMap().addAttribute("age", person.getAge());
-        model.getModelMap().addAttribute("books", person.getBooks());
 
         return model;
     }

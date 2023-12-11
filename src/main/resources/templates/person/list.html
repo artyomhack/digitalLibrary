@@ -14,16 +14,15 @@
             </tr>
             <tr th:each="person:${persons}">
                 <td th:text="${person.getFullName()}"></td>
-                <td th:text="${person.getAge()}">
-                </td>
+                <td th:text="${person.getAge()}"></td>
                 <td><a class="floating-button-a" th:href="@{'/person/'+ ${person.id} + '/edit'}">edit</a></td>
                 <td><a class="floating-button-a" th:href="@{/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
             </tr>
         </table>
     </div>
     <div>
-        <a class="floating-button-a" href="/person/create">Create person</a>
-        <a class="floating-button-a" href="/menu" >Menu</a>
+        <a class="floating-button-a" href="/person/create">Создать человека</a>
+        <a class="floating-button-a" href="/menu" >Меню</a>
     </div>
 </div>
 </body>
