@@ -7,12 +7,12 @@
 <body>
 <h4 th:text="${id}"></h4>
 <div class="info">
-    <h3>Full name: <span th:text="${fullName}"></span></h3>
-    <h3>Age: <span th:text="${age}"> </span></h3>
+    <p>Full name: <span th:text="${fullName}"></span></p>
+    <p>Age: <span th:text="${age}"> </span></p>
 </div>
 
 <div class="book-list">
-    <h2>Books:</h2>
+    <p>Books:</p>
     <ul>
         <li th:each="book : ${books}">
             <h4 th:text="${book.title}"></h4> by <span th:text="${book.author}"></span>

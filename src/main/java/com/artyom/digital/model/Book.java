@@ -2,11 +2,18 @@ package com.artyom.digital.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 @Data
 public class Book {
     private Integer id;
+    @NotEmpty(message = "Должно быть название книги")
     private String title;
+    @NotEmpty(message = "Должно быть название автора книги")
     private String author;
+    @NotEmpty(message = "Должен быть год создания книги")
     private String year;
     private Person person;
 

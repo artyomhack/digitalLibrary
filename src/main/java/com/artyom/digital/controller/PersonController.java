@@ -5,9 +5,11 @@ import com.artyom.digital.dao.PersonDAO;
 import com.artyom.digital.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @Controller
@@ -29,7 +31,11 @@ public class PersonController {
     }
 
     @PostMapping("/create")
-    public String createForm(@ModelAttribute("person") Person person) {
+    public String createForm(@ModelAttribute("person") @Valid Person person,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "person/form";
+
         personDAO.save(person);
         return "redirect:/person/info/" + person.getId();
     }
@@ -58,9 +64,21 @@ public class PersonController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") String id) {
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+                         @PathVariable("id") String id) {
+
+        if (bindingResult.hasErrors())
+            return "person/edit";
+
         personDAO.update(Integer.valueOf(id), person);
         return "redirect:/person/info/" + id;
+    }
+
+    @DeleteMapping("/{id}/remove")
+    public String delete(@PathVariable("id") String id) {
+        personDAO.removeById(Integer.parseInt(id));
+
+        return "redirect:/person/list";
     }
 
     public ModelAndView getInfo(Person person) {

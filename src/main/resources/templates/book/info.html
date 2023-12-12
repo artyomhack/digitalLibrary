@@ -6,11 +6,11 @@
 </head>
 <body>
 <div>
-    <h3 id="id" th:text="'Id: ' + ${bookId}"></h3>
-    <h3 id="title" th:text="'Title: ' + ${title}"></h3>
-    <h3 id="author" th:text="'Author: ' + ${author}"></h3>
-    <h3 id="year_" th:text="'Year: ' + ${year}"></h3>
-    <h3 th:text="${person.getFullName() != null ? 'Читает: ' + person.getFullName() + ' | ID:' + person.getId() : 'Эту книгу не читают'}"></h3>
+    <p id="id" th:text="'Id: ' + ${bookId}"></p>
+    <p id="title" th:text="'Title: ' + ${title}"></p>
+    <p id="author" th:text="'Author: ' + ${author}"></p>
+    <p id="year_" th:text="'Year: ' + ${year}"></p>
+    <p th:text="${person.getFullName() != null ? 'Читает: ' + person.getFullName() + ' | ID:' + person.getId() : 'Эту книгу не читают'}"></p>
     <form th:if="${person.getFullName() == null}" th:method="POST" th:object="${person}">
         <select id="personId" th:field="*{id}">
             <option th:each="p : ${persons}" th:value="${p.id}" th:text="${p.fullName}">

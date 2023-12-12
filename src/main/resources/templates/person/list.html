@@ -9,14 +9,18 @@
     <div>
         <table class="table">
             <tr>
-                <td>FullName</td>
-                <td>Age</td>
+                <td>ФИО</td>
+                <td>Возраст</td>
             </tr>
             <tr th:each="person:${persons}">
                 <td th:text="${person.getFullName()}"></td>
                 <td th:text="${person.getAge()}"></td>
-                <td><a class="floating-button-a" th:href="@{'/person/'+ ${person.id} + '/edit'}">edit</a></td>
-                <td><a class="floating-button-a" th:href="@{/person/remove/{id}(id=${person.getId()})}">Удалить</a></td>
+                <td><a class="floating-button-a" th:href="@{'/person/'+ ${person.id} + '/edit'}">изменить </a></td>
+                <td>
+                    <form th:method="DELETE" th:action="@{'/person/' + ${person.id} + '/remove'}">
+                        <input type="submit" value="удалить"/>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>

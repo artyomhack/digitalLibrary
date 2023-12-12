@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Update person</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <form th:method="patch" th:action="@{/person/{id}(id=${person.getId()})}" th:object="${person}">
         <label for="fullName">Full Name: </label>
-        <input type="text" th:field="*{fullName}" id="fullName"/>
+        <input type="text" name="fullName" th:field="*{fullName}" id="fullName"/>
+        <div class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">FullName error</div>
         <br/>
         <br/>
         <label for="age">Age: </label>
-        <input type="text" th:field="*{age}" id="age"/>
+        <input type="text" name="age" th:field="*{age}" id="age"/>
+        <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
         <br/>
         <br/>
-        <button type="submit">edit</button>
+        <input type="submit">edit</input>
     </form>
 </body>
 </html>
